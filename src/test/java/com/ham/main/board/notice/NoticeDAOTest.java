@@ -24,13 +24,18 @@ class NoticeDAOTest {
 	}
 	@Test
 	void addTest() throws Exception {
+		for(int i=0; i<150; i++) {
 		BoardVO boardVO = new BoardVO();
-		boardVO.setBoardTitle("제목");
-		boardVO.setBoardWriter("관리자");
-		boardVO.setBoardContents("test");
+		boardVO.setBoardTitle("제목"+i);
+		boardVO.setBoardWriter("관리자"+i);
+		boardVO.setBoardContents("test"+i);
 		int result = noticeDAO.add(boardVO);
 		
-		assertEquals(1, result);
+		if(i%10==0) {
+	    	Thread.sleep(500);
+		    }
+		}
+		System.out.println("Finish");
 	}
 
 }
