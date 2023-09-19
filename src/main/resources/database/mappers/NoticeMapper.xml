@@ -3,15 +3,68 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
+
 <mapper namespace="com.ham.main.board.notice.NoticeDAO">
-   <select id="getList" resultType="NoticeVO">
+
+<sql id="forPager">
+   <choose>
+   <!-- 1에 홑따옴표->변수가 아닌 값으로 구분하기 위함 -->
+       <when test="kind=='1'">
+          BOARDTITLE
+       </when>
+       <when test="kind=='2'">
+          BOARDCONTENTS
+       </when>
+       <otherwise>
+          BOARDWRITER
+       </otherwise>
+   </choose>
+    
+</sql>
+
+	<select id="getList" resultType="NoticeVO" parameterType="Pager">
+		SELECT * FROM NOTICE	
+		WHERE 
+		<include refid="forPager"></include>
+		 LIKE CONCAT('%',#{search},'%')
+		ORDER BY BOARDNO DESC
+		LIMIT #{startRow},#{lastRow}
+	</select>
+
+	<insert id="add" parameterType="BoardVO">
+		INSERT INTO NOTICE
+		VALUES(0,#{boardTitle},#{boardWriter},#{boardContents},now(),0)
+	</insert>
+
+  <select id="getCount" parameterType="Pager" resultType="Long">
+       <bind name="pattern" value="'%'+_parameter.getSearch()+'%'"/>
+       SELECT COUNT(BOARDNO)
+         FROM NOTICE
+        WHERE <include refid="forPager"></include>
+        LIKE #{pattern}
+  </select>
+
+  <select id="getDetail" parameterType="BoardVO" resultType="BoardVO">
       SELECT *
         FROM NOTICE
-       ORDER BY BOARDNO DESC
-   </select>
-   
-   <insert id="add" parameterType="BoardVO">
-      INSERT INTO NOTICE VALUES(0,#{boardTitle},#{boardWriter},#{boardContents},now(),0)
-   </insert>
+       WHERE BOARDNO=#{boardNo} 
+  </select>
+
+  <update id="setUpdate" parameterType="BoardVO">
+     UPDATE NOTICE
+        SET BOARDTITLE=#{boardTitle}, BOARDCONTENTS=#{boardContents}
+      WHERE BOARDNO=#{boardNo}
+  </update>
+
+  <delete id="setDelete" parameterType="BoardVO">
+     DELETE FROM NOTICE
+      WHERE BOARDNO=#{boardNo}
+  </delete>
+  
+  <update id="setHitUpdate" parameterType="BoardVO">
+     UPDATE NOTICE
+        SET BOARDHIT+1
+      WHERE BOARDNO=#{boardNo}
+  </update>
 </mapper>
