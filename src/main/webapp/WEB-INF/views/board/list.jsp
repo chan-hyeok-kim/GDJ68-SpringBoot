@@ -19,16 +19,81 @@
 				<c:import url="/WEB-INF/views/layout/topbar.jsp"></c:import>
 
 				<div class="container-fluid">
-				    <h1>List Page</h1>
+					<h1>List Page</h1>
+
+					<div class="card shadow mb-4">
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="dataTable" width="100%"
+									cellspacing="0">
+									<thead>
+										<tr>
+											<th>No</th>
+											<th>Title</th>
+											<th>Writer</th>
+											<th>Date</th>
+											<th>Hit</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${list}" var="vo">
+											<tr>
+												<td>${vo.boardNo}</td>
+												<td><a href="detail?boardNo=${vo.boardNo}">${vo.boardTitle}</a></td>
+												<td>${vo.boardWriter}</td>
+												<td>${vo.boardDate}</td>
+												<td>${vo.boardHit}</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+
+
+								</table>
+
+								<div class="row">
+									<div class="col-sm-12 col-md-5">
+										<div class="dataTables_info" id="dataTable_info" role="status"
+											aria-live="polite">
+											<a href="/notice/add" class="btn btn-primary btn-icon-split"> <span
+												class="icon text-white-50"> <i class="fas fa-flag"></i>
+											</span> <span class="text">글 작성</span>
+											</a>
+										</div>
+									</div>
+									<div class="col-sm-12 col-md-7">
+
+										<div class="dataTables_paginate paging_simple_numbers"
+											id="dataTable_paginate">
+											<ul class="pagination float-right">
+												<li class="paginate_button page-item previous disabled"
+													id="dataTable_previous"><a href="#"
+													aria-controls="dataTable" data-dt-idx="0" tabindex="0"
+													class="page-link">Previous</a></li>
+												<li class="paginate_button page-item active"><a
+													href="#" aria-controls="dataTable" data-dt-idx="1"
+													tabindex="0" class="page-link">1</a></li>
+
+												<li class="paginate_button page-item next"
+													id="dataTable_next"><a href="#"
+													aria-controls="dataTable" data-dt-idx="7" tabindex="0"
+													class="page-link">Next</a></li>
+											</ul>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+
+					</div>
+					<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
 				</div>
 
 			</div>
-			<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
-		</div>
-
-	</div>
 
 
-	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
+			<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
 </body>
 </html>
