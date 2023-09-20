@@ -66,12 +66,12 @@
 											id="dataTable_paginate">
 											<ul class="pagination float-right">
 												<li class="paginate_button page-item previous disabled"
-													id="dataTable_previous"><a href="#"
+													id="dataTable_previous"><a href="list?page=${pager.pre}"
 													aria-controls="dataTable" data-dt-idx="0" tabindex="0"
 													class="page-link">Previous</a></li>
 												<li class="paginate_button page-item active"><a
-													href="#" aria-controls="dataTable" data-dt-idx="1"
-													tabindex="0" class="page-link">1</a></li>
+													href="list" aria-controls="dataTable" data-dt-idx="1"
+													tabindex="0" class="page-link">${pager.totalPage}</a></li>
 
 												<li class="paginate_button page-item next"
 													id="dataTable_next"><a href="#"

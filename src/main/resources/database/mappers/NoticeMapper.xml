@@ -32,7 +32,7 @@
 		LIMIT #{startRow},#{lastRow}
 	</select>
 
-	<insert id="add" parameterType="BoardVO">
+	<insert id="add" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="boardNo">
 		INSERT INTO NOTICE
 		VALUES(0,#{boardTitle},#{boardWriter},#{boardContents},now(),0)
 	</insert>
@@ -45,11 +45,30 @@
         LIKE #{pattern}
   </select>
 
-  <select id="getDetail" parameterType="BoardVO" resultType="BoardVO">
-      SELECT *
-        FROM NOTICE
-       WHERE BOARDNO=#{boardNo} 
+  <select id="getDetail" parameterType="BoardVO" resultMap="getDetailResult">
+      SELECT N.*, NF.*
+        FROM NOTICE N LEFT OUTER JOIN NOTICEFILES NF
+          ON N.BOARDNO=NF.BOARDNO
+       WHERE N.BOARDNO=#{boardNo} 
   </select>
+  
+  <resultMap type="NoticeVO" id="getDetailResult">
+      <id column="BOARDNO" property="boardNo"/>
+      <result column="BOARDTITLE" property="boardTitle"/>
+      <result column="BOARDWRITER" property="boardWriter"/>
+      <result column="BOARDDATE" property="boardDate"/>
+      <result column="BOARDCONTENTS" property="boardContents"/>
+      <result column="BOARDHIT" property="boardHit"/>
+      
+      <collection property="noticeFileVOs" javaType="java.util.List" ofType="NoticeFileVO">
+         <id column="FILENO" property="fileNo"/>
+         <result column="FILENAME" property="fileName"/>
+         <result column="ORINAME" property="oriName"/>
+      </collection>
+  </resultMap>
+  
+  <!-- USING(BOARDNO)도 가능 -->
+  <!-- 연결하는 컬럼명이 같을 때 사용. 대신에 *이나 테이블 별칭을 사용하지 못함 -->
 
   <update id="setUpdate" parameterType="BoardVO">
      UPDATE NOTICE
@@ -64,7 +83,17 @@
   
   <update id="setHitUpdate" parameterType="BoardVO">
      UPDATE NOTICE
-        SET BOARDHIT+1
+        SET BOARDHIT=BOARDHIT+1
       WHERE BOARDNO=#{boardNo}
   </update>
+  
+  <insert id="fileAdd" parameterType="NoticeFileVO">
+     INSERT INTO NOTICEFILES VALUES(#{fileNo},#{boardNo},#{fileName},#{oriName})
+  </insert>
+  
+  <select id="getFileDetail" parameterType="FileVO" resultType="NoticeFileVO">
+     SELECT *
+       FROM NOTICEFILES
+      WHERE FILENO=#{fileNo}
+  </select>
 </mapper>

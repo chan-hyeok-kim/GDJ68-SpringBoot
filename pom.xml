@@ -45,7 +45,6 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<!-- 버전 삭제, 에러 발생시 버전 적용 -->
-			<version>1.2</version>
 		</dependency>
 
 		<!--

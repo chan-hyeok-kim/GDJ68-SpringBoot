@@ -2,6 +2,7 @@ package com.ham.main.board;
 
 import java.util.List;
 
+import com.ham.main.board.notice.NoticeFileVO;
 import com.ham.main.commons.Pager;
 
 public interface BoardDAO {
@@ -19,4 +20,8 @@ public interface BoardDAO {
 	public int setDelete(BoardVO boardVO) throws Exception;
 	
 	public int setHitUpdate(BoardVO boardVO) throws Exception;
+	
+	public int fileAdd(FileVO fileVO) throws Exception;
+	
+	public FileVO getFileDetail(FileVO fileVO) throws Exception;
 }

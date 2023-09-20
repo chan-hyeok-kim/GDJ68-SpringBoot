@@ -22,22 +22,22 @@
 					<h1>Update Page</h1>
 					<div class="row">
 					<form action="update" method="post">
-					<input type="hidden" name="boardNo" value="${nto.boardNo}"> 
+					<input type="hidden" name="boardNo" value="${nvo.boardNo}"> 
 						<div class="mb-3">
 							<label for="boardTitle" class="form-label">Title
 								</label> <input type="text" class="form-control"
-								id="boardTitle" placeholder="제목을 입력하세요" value="${nto.boardTitle}" name="boardTitle">
+								id="boardTitle" placeholder="제목을 입력하세요" value="${nvo.boardTitle}" name="boardTitle">
 						</div>
 						<div class="mb-3">
 							<label for="boardWriter" class="form-label">Writer
 								</label> <input type="text" class="form-control"
-								id="boardWriter" placeholder="작성자를 입력하세요" value="${nto.boardWriter}" name="boardWriter">
+								id="boardWriter" placeholder="작성자를 입력하세요" value="${nvo.boardWriter}" name="boardWriter">
 						</div>
 						<div class="mb-3">
 							<label for="boardContents" class="form-label">Contents
 								</label>
 							<textarea class="form-control" id="boardContents" name="boardContents"
-								rows="3">${nto.boardContents}</textarea>
+								rows="3">${nvo.boardContents}</textarea>
 						</div>
 						   <button class="btn btn-danger">수정</button>
 						</form>

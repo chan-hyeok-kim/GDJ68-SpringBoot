@@ -27,23 +27,28 @@
 			<tbody>
 				<tr>
 					<th scope="row" class="point">제목</th>
-					<td colspan="3" class="subject">${nto.boardTitle}</td>
+					<td colspan="3" class="subject">${nvo.boardTitle}</td>
 				</tr>
 				<tr>
 					<th scope="row">작성자</th>
-					<td>${nto.boardWriter}</td>
+					<td>${nvo.boardWriter}</td>
 					<th scope="row">작성일</th>
-					<td>${nto.boardDate}</td>
+					<td>${nvo.boardDate}</td>
 				</tr>
 				<tr>
 					<th scope="row">조회수</th>
-					<td colspan="3">${nto.boardHit}
+					<td colspan="3">${nvo.boardHit}
 						
 					</td>
 				</tr>
 				<tr>
 					
-					<td colspan="4">${nto.boardContents}</td>
+					<td colspan="4">
+					<c:forEach items="${nvo.noticeFileVOs}" var="f">
+					    <img alt="" src="../files/${board}/${f.fileName}">
+					    <a href="./fileDown?fileNo=${f.fileNo}">${f.oriName}</a>
+					</c:forEach>
+					${nvo.boardContents}</td>
 				</tr>
 			</tbody>
 			</table>    
@@ -53,12 +58,12 @@
                       <div class="col-sm-12 col-md-5">
 										<div class="dataTables_info" id="dataTable_info" role="status"
 											aria-live="polite" style="display: flex">
-											<a href="update?boardNo=${nto.boardNo}" class="btn btn-primary btn-icon-split"> <span
+											<a href="update?boardNo=${nvo.boardNo}" class="btn btn-primary btn-icon-split"> <span
 												class="icon text-white-50"> <i class="fas fa-flag"></i>
 											</span> <span class="text">수정</span>
 											</a>
 											<form action="delete" method="post">
-											<input type="hidden" name="boardNo" value="${nto.boardNo}">
+											<input type="hidden" name="boardNo" value="${nvo.boardNo}">
 											<button class="btn btn-primary btn-icon-split"> <span
 												class="icon text-white-50"> <i class="fas fa-flag"></i>
 											</span> <span class="text">삭제</span>

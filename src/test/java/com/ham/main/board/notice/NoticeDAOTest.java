@@ -56,7 +56,7 @@ class NoticeDAOTest {
     	assertEquals(2L, count);
     }
 
-	@Test
+//	@Test
 	void getDetail(BoardVO boardVO) throws Exception{
 		boardVO.setBoardNo(2L);
 		

@@ -6,12 +6,15 @@
 
 <configuration>
 	<typeAliases>
-	
-	
-	<typeAlias type="com.ham.main.board.notice.NoticeVO" alias="NoticeVO"/>
-    <typeAlias type="com.ham.main.board.BoardVO" alias="BoardVO"/>
-    <typeAlias type="com.ham.main.board.qna.QnaVO" alias="QnaVO"/>
-    <typeAlias type="com.ham.main.commons.Pager" alias="Pager"/>
+
+
+
+		<typeAlias type="com.ham.main.board.BoardVO" alias="BoardVO" />
+		<typeAlias type="com.ham.main.board.FileVO" alias="FileVO" />
+		<typeAlias type="com.ham.main.board.notice.NoticeVO" alias="NoticeVO" />
+		<typeAlias type="com.ham.main.board.notice.NoticeFileVO" alias="NoticeFileVO" />
+		<typeAlias type="com.ham.main.board.qna.QnaVO" alias="QnaVO" />
+		<typeAlias type="com.ham.main.commons.Pager" alias="Pager" />
 
 
 
