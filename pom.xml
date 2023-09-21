@@ -13,6 +13,7 @@
 	<artifactId>GDJ68-Boot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>GDJ68-Boot</name>
+	<packaging>war</packaging>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
