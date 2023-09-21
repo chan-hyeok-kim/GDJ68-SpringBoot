@@ -22,7 +22,7 @@
 
 				<div class="container-fluid">
 				    <h1>Welcome : <spring:message code="hello"></spring:message></h1>
-				    <h1><spring:message code="hi"></spring:message> </h1>
+				    <h1><spring:message code="hi" text="기본메세지"></spring:message> </h1>
 				</div>
 
 			</div>
