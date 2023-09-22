@@ -174,11 +174,11 @@
 				<div
 					class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#"> <i
+					<a class="dropdown-item" href="/member/mypage"> <i
 						class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-					</a> <a class="dropdown-item" href="#"> <i
-						class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
-					</a> <a class="dropdown-item" href="#"> <i
+					</a> <a class="dropdown-item" href="/member/update"> <i
+						class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 정보 수정
+					</a> <a class="dropdown-item" href="/member/update"> <i
 						class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> Activity
 						Log
 					</a>
@@ -196,11 +196,13 @@
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item"><a class="nav-link "
 				href="/member/join" role="button" aria-expanded="false">
-					<i class="fas fa-search fa-fw"></i>
+					<i style='font-size:24px; color:yellowgreen' class='fas'>&#xf2bb;</i>
+					
 			</a></li>
 			<li class="nav-item"><a class="nav-link "
 				href="/member/login" role="button" aria-expanded="false">
-					<i class="fas fa-search fa-fw"></i>
+					<i style='font-size:24px; color:yellowgreen' class='fas'>&#xf502;</i>
+
 			</a></li>
 		</ul>
 	</c:if>
