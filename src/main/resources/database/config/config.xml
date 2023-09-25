@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+
+
+
+		<typeAlias type="com.ham.main.board.BoardVO" alias="BoardVO" />
+		<typeAlias type="com.ham.main.board.FileVO" alias="FileVO" />
+		<typeAlias type="com.ham.main.board.notice.NoticeVO" alias="NoticeVO" />
+		<typeAlias type="com.ham.main.board.notice.NoticeFileVO" alias="NoticeFileVO" />
+		<typeAlias type="com.ham.main.board.qna.QnaVO" alias="QnaVO" />
+		<typeAlias type="com.ham.main.board.qna.QnaFileVO" alias="QnaFileVO" />
+		
+		<typeAlias type="com.ham.main.member.MemberVO" alias="MemberVO" />
+		<typeAlias type="com.ham.main.commons.Pager" alias="Pager" />
+
+
+
+
+	</typeAliases>
+</configuration>
+  

@@ -2,7 +2,6 @@
 application-dev.properties
 application-prod.properties
 
-
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -37,9 +36,8 @@ build/
 ### VS Code ###
 .vscode/
 
-
-# Created by https://www.toptal.com/developers/gitignore/api/maven,windows,java
-# Edit at https://www.toptal.com/developers/gitignore?templates=maven,windows,java
+# Created by https://www.toptal.com/developers/gitignore/api/windows,java,maven
+# Edit at https://www.toptal.com/developers/gitignore?templates=windows,java,maven
 
 ### Java ###
 # Compiled class file
@@ -112,4 +110,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/maven,windows,java
+# End of https://www.toptal.com/developers/gitignore/api/windows,java,maven
