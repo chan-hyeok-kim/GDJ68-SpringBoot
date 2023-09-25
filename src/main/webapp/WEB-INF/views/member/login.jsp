@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- JSP에서 properties이 메세지를 사용할 수 있도록 하는 API -->
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,8 +20,42 @@
 				<c:import url="/WEB-INF/views/layout/topbar.jsp"></c:import>
 
 				<div class="container-fluid">
-				    <h1>Welcome : <spring:message code="hello"></spring:message></h1>
-				    <h1><spring:message code="hi" text="기본메세지"></spring:message> </h1>
+					<form:form modelAttribute="memberVO" method="post">
+						<div class="form-group">
+							<form:label path="username">Username</form:label>
+							<form:input id="username" path="username" cssClass="form-control" />
+							<form:errors path="username"></form:errors>
+         
+						</div>
+						<div class="form-group">
+							<form:label path="password">Password</form:label>
+							<form:password path="password" cssClass="form-control" />
+							<form:errors path="password"></form:errors>
+						</div>
+
+
+						<button type="submit" class="btn btn-primary">Submit</button>
+
+					</form:form>
+
+
+
+					<form action="" method="post" enctype="multipart/form-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+					</form>
+
 				</div>
 
 			</div>
