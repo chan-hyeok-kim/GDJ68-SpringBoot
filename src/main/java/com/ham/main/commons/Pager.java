@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Pager {
+public class Pager{
 
 	// 시작 인덱스 번호
 	private Long startRow;

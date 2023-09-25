@@ -10,4 +10,6 @@ public class IndexController {
 	public String getIndex() throws Exception{
 		return "index";
 	}
+	
+
 }

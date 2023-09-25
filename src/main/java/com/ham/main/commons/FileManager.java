@@ -8,7 +8,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 @Component
-public class FileManager {
+public class FileManager{
 	
 	//file 저장 후 파일명 리턴
 	public String save(String path, MultipartFile multipartFile) throws Exception{
