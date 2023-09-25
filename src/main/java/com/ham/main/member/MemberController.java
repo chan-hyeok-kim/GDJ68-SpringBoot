@@ -58,17 +58,17 @@ public class MemberController {
 	public void getLogin(@ModelAttribute MemberVO memberVO) throws Exception{
 		
 	}
-	
-	@PostMapping("login")
-    public String getLogin(MemberVO memberVO,HttpSession session) throws Exception{
-		memberVO = memberService.getLogin(memberVO);
-		if(memberVO!=null) {
-			session.setAttribute("member", memberVO);
-			return "redirect:../";
-		}
-		
-		return "redirect:./login";
-	}
+//	
+//	@PostMapping("login")
+//    public String getLogin(MemberVO memberVO,HttpSession session) throws Exception{
+//		memberVO = memberService.getLogin(memberVO);
+//		if(memberVO!=null) {
+//			session.setAttribute("member", memberVO);
+//			return "redirect:../";
+//		}
+//		
+//		return "redirect:./login";
+//	}
 	
 	@GetMapping("logout")
 	public String getLogOut(HttpSession session) throws Exception{

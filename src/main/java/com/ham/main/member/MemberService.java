@@ -3,6 +3,9 @@ package com.ham.main.member;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class MemberService {
+public class MemberService implements UserDetailsService{
 
 	@Autowired
 	private MemberDAO memberDAO;
@@ -58,6 +61,21 @@ public class MemberService {
 		return null;
 	}
 	
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    	// TODO Auto-generated method stub
+    	log.info("===== 로그인 시도 중 ========");
+    	MemberVO memberVO = new MemberVO();
+    	memberVO.setUsername(username);
+    	try {
+			memberVO = memberDAO.getMember(memberVO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			memberVO=null;
+		}
+    	return memberVO;
+    }
 	
 	
 	
