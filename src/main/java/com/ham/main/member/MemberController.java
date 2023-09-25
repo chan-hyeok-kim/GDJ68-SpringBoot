@@ -47,7 +47,9 @@ public class MemberController {
 		}
 		
 //		회원가입 진행
+		int result = memberService.setJoin(memberVO);
 		
+//		나중에 회원 사진 파일 저장 추가
 		
 		log.info("Photo : {}---size : {}",photo.getOriginalFilename(),photo.getSize());
 		return "redirect:../";

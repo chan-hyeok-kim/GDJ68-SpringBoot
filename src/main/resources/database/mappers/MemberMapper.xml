@@ -31,6 +31,14 @@
 		
 	</resultMap>
 	
+	<insert id="setJoin" parameterType="MemberVO">
+	   INSERT INTO MEMBER (USERNAME, PASSWORD, NAME, EMAIL, BIRTH, JOINDATE)
+	   VALUES (#{username}, #{password},#{name},#{email},#{birth}, NOW())	
+	</insert>
 	
+	<insert id="setMemberRole" parameterType="java.util.Map">
+	   INSERT INTO MEMBER_ROLE 
+	   VALUES (#{roleNum},#{username})
+	</insert>
 	
 </mapper>

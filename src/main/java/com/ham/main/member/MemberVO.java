@@ -29,7 +29,7 @@ public class MemberVO extends MemberInfoVO implements UserDetails{
 	@NotBlank
 	private String username;
 	
-	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*\\\\W)(?=\\\\S+$).{6,12}",message = "비번 잘 입력해")
+//	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*\\\\W)(?=\\\\S+$).{6,12}",message = "비번 잘 입력해")
 	private String password;
 	
 	private String passwordCheck;
@@ -69,6 +69,7 @@ public class MemberVO extends MemberInfoVO implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
+		
 		return true;
 	}
 	
