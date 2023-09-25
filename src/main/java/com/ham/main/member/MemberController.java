@@ -36,8 +36,10 @@ public class MemberController {
 	
 	@PostMapping("join")
 	public String setJoin(@Valid MemberVO memberVO, BindingResult bindingResult, MultipartFile photo) throws Exception{
+		/***
+		 * @Valid는 컨트롤러에서만 작동 가능
+		 */
 		
-		log.info("====={}",memberVO);
 		boolean check = memberService.getMemberError(memberVO, bindingResult);
 		
 		if(bindingResult.hasErrors() || check) {

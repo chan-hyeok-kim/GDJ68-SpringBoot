@@ -1,15 +1,26 @@
 package com.ham.main.member;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class MemberService {
 
 	@Autowired
 	private MemberDAO memberDAO;
+	
+	public void testValid(@Valid MemberVO memberVO, BindingResult bindingResult) throws Exception{
+		log.info("Test Valid : {}", memberVO);
+	}
+	
+	
 	
 	//검증 메서드
 	public boolean getMemberError(MemberVO memberVO,BindingResult bindingResult) throws Exception {
