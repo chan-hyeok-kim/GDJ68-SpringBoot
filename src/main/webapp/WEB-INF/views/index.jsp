@@ -25,8 +25,10 @@
 				    <h1>Welcome : <spring:message code="hello"></spring:message></h1>
 				    <h1><spring:message code="hi" text="기본메세지"></spring:message> </h1>
 				    
+				    <sec:authorize access="isAuthenticated()">
 				    <sec:authentication property="name" var="user"/>
 				    <h1><spring:message code="login.welcome" arguments="${user}"></spring:message> </h1>
+				    </sec:authorize>
 				</div>
 
 			</div>

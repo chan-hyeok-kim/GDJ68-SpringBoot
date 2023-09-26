@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -65,9 +66,13 @@ public class SecurityConfig {
 		        .permitAll()
 		        .and()
 		    .logout()
+//		        .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")) // 도 사용 가능
 		        .logoutUrl("/member/logout")
-		        .logoutSuccessUrl("/")
+//		        .logoutSuccessUrl("/")
+		        .addLogoutHandler(this.getLogoutAdd())
+		        .logoutSuccessHandler(this.getLogoutHandler())
 		        .invalidateHttpSession(true)
+		        .deleteCookies("JSESSIONID")
 		        .and()
 		    .sessionManagement()
 			    ;
@@ -78,6 +83,14 @@ public class SecurityConfig {
 	
 	private SecurityFailureHandler getFailureHandler() {
 		return new SecurityFailureHandler();
+	}
+	
+	private SecurityLogoutAdd getLogoutAdd() {
+		return new SecurityLogoutAdd();
+	}
+	
+	private SecurityLogoutHandler getLogoutHandler() {
+		return new SecurityLogoutHandler();
 	}
 	
 	

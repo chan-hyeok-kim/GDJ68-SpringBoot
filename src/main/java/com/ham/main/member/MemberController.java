@@ -6,6 +6,9 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import ch.qos.logback.core.Context;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -57,20 +61,20 @@ public class MemberController {
 	}
 	
 	@GetMapping("login")
-	public void getLogin(@ModelAttribute MemberVO memberVO) throws Exception{
+	public String getLogin(@ModelAttribute MemberVO memberVO) throws Exception{
+		SecurityContext context = SecurityContextHolder.getContext();
+        
+		String check = context.getAuthentication().getPrincipal().toString();
 		
+		log.info("=========Name:{}=======",context.getAuthentication().getPrincipal().toString());
+		
+		if(!check.equals("anonymousUser")) {
+			return "redirect:/";
+		}
+		
+		return "member/login";
 	}
-//	
-//	@PostMapping("login")
-//    public String getLogin(MemberVO memberVO,HttpSession session) throws Exception{
-//		memberVO = memberService.getLogin(memberVO);
-//		if(memberVO!=null) {
-//			session.setAttribute("member", memberVO);
-//			return "redirect:../";
-//		}
-//		
-//		return "redirect:./login";
-//	}
+
 	
 	@GetMapping("logout")
 	public String getLogOut(HttpSession session) throws Exception{
@@ -99,6 +103,12 @@ public class MemberController {
 	   
 	}
 	
+	@GetMapping("info")
+	public void getInfo() throws Exception{
+	 
+		
+	   
+	}
 	
 	
 }
