@@ -27,6 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SecurityFailureHandler implements AuthenticationFailureHandler{
 
+	
+	
+	
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
@@ -38,11 +41,11 @@ public class SecurityFailureHandler implements AuthenticationFailureHandler{
 		String message= "로그인 실패";
 		
 		if(exception instanceof InternalAuthenticationServiceException) {
-			message= "존재하지 않는 아이디입니다";
+			message= "login.fail.nouser";
 		}
 		
 		if(exception instanceof BadCredentialsException) {
-			message="비밀번호 불일치";
+			message="login.fail.notpassword";
 		}
 		
 		if(exception instanceof AccountExpiredException) {

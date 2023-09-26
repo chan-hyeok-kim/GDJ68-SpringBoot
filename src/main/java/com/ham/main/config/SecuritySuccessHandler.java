@@ -24,7 +24,6 @@ public class SecuritySuccessHandler implements AuthenticationSuccessHandler{
 		// TODO Auto-generated method stub
 //		log.info("======Authtication:{}===",authentication);
 		
-		
 		String path = request.getPathInfo();
 		String uri = request.getRequestURI();
 		StringBuffer url = request.getRequestURL();

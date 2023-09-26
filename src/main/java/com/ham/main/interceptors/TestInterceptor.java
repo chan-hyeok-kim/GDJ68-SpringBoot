@@ -38,7 +38,7 @@ public class TestInterceptor implements HandlerInterceptor {
 			throws Exception {
 		// TODO Auto-generated method stub
 		log.info("========== JSP 렌더링 후 ==============");
-		HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
+		
 	}
 	
 	
