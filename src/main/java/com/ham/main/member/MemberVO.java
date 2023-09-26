@@ -31,9 +31,13 @@ public class MemberVO extends MemberInfoVO implements UserDetails{
 	
 //	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*\\\\W)(?=\\\\S+$).{6,12}",message = "비번 잘 입력해")
 	private String password;
-	
 	private String passwordCheck;
-    private List<RoleVO> roleVOs;
+    
+	private Boolean enabled;
+
+
+	
+	private List<RoleVO> roleVOs;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -49,7 +53,6 @@ public class MemberVO extends MemberInfoVO implements UserDetails{
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		
 		
 		return true;
 	}
@@ -68,9 +71,8 @@ public class MemberVO extends MemberInfoVO implements UserDetails{
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		
-		return true;
+		// 0과 1은 알아서 비트해줌
+		return this.enabled;
 	}
 	
 	

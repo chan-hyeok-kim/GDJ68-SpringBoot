@@ -1,5 +1,6 @@
 package com.ham.main.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +14,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+	@Autowired
+	private SecuritySuccessHandler securitySuccessHandler;
+	
+	
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -51,10 +56,12 @@ public class SecurityConfig {
 				.and()
 		    //form 관련 설정
 			.formLogin()
-			    .loginPage("/member/login")//내장된 로그인폼을 사용하지 않고, 개발자가 만든 폼을 사용
+			    .loginPage("/member/login")//내장된 로그인폼을 사용하지 않고, 개발r 만든 폼을 사용
 //			    POST 로그인을 처리하는 주소
+//			    .successHandler(securitySuccessHandler)
 			    .defaultSuccessUrl("/")
-			    .failureUrl("/member/login")
+			    .failureHandler(this.getFailureHandler())
+//			    .failureUrl("/member/login?message=LoginFail")
 		        .permitAll()
 		        .and()
 		    .logout()
@@ -69,6 +76,9 @@ public class SecurityConfig {
 	}
 	
 	
+	private SecurityFailureHandler getFailureHandler() {
+		return new SecurityFailureHandler();
+	}
 	
 	
 }

@@ -23,7 +23,8 @@
 		<result column="EMAIL" property="email" />
 		<result column="BIRTH" property="birth" />
 		<result column="JOINDATE" property="joinDate" />
-
+        <result column="ENABLED" property="enabled"/>
+        
 		<collection property="roleVOs" ofType="RoleVO" javaType="List">
 			<id column="ROLENUM" property="roleNum" />
 			<result column="ROLENAME" property="roleName" />
