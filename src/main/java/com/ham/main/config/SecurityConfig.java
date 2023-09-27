@@ -44,8 +44,8 @@ public class SecurityConfig {
 		httpSecurity
 		    .cors()
 		    .and()
-//		    .csrf()
-//		    .disable()
+		    .csrf()
+		    .disable()
 		    .authorizeHttpRequests()
 				.antMatchers("/notice/add").hasRole("ADMIN") // ROLE_ADMIN에서 ROLE_제외
 				.antMatchers("/manager/*").hasAnyRole("MANAGER", "ADMIN")
@@ -77,7 +77,11 @@ public class SecurityConfig {
 		        .userDetailsService(memberService)
 		        .authenticationSuccessHandler(securitySuccessHandler)
 		        .and()
-		    .sessionManagement()
+		    .oauth2Login()
+		        .userInfoEndpoint()
+		        .userService(memberService)
+		        .and()
+		    
 			    ;
 		
 		return httpSecurity.build();

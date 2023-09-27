@@ -39,7 +39,7 @@ public class NoticeService implements BoardService {
 	@Override
 	public List<BoardVO> getList(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
-		pager.makePageNum(noticeDAO.getCount(pager));		
+		pager.makePageNum(noticeDAO.getCount(pager));	
 		return noticeDAO.getList(pager);
 	}
 

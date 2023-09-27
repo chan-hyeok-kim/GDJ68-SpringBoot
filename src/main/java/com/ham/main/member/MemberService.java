@@ -1,7 +1,14 @@
 package com.ham.main.member;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -10,6 +17,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -19,13 +31,79 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class MemberService implements UserDetailsService{
+public class MemberService extends DefaultOAuth2UserService implements UserDetailsService {
 
 	@Autowired
 	private MemberDAO memberDAO;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	
+    //Social Login
+	@Override
+	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+		
+	
+		ClientRegistration clientRegistration = userRequest.getClientRegistration();
+		OAuth2User auth2User =  super.loadUser(userRequest);
+		log.info("============={}===========",auth2User);
+		
+		
+		String social = clientRegistration.getRegistrationId();
+		
+		if(social.equals("kakao")) {
+			auth2User = this.forKakao(auth2User);
+		}
+		
+		return auth2User;
+	}
+	
+	
+	private OAuth2User forKakao(OAuth2User auth2User){
+		MemberVO memberVO = new MemberVO();
+		
+		
+
+		LinkedHashMap<String, Object> map = auth2User.getAttribute("properties");
+		
+		LinkedHashMap<String, Object> accountMap = auth2User.getAttribute("kakao_account");
+		
+		log.info("****{}*********", auth2User.getAttribute("properties").getClass());
+		log.info("****{}*********", map);
+		auth2User.getAttribute("properties");
+		
+		LinkedHashMap<String, Object> profile = (LinkedHashMap<String, Object>) accountMap.get("profile");
+		
+		memberVO.setUsername(map.get("nickname").toString());
+		memberVO.setEmail(accountMap.get("email").toString());
+	    String birth = accountMap.get("birthday").toString();
+	    
+        String m = birth.substring(0,2);
+        String d = birth.substring(2);
+
+        Calendar calendar = Calendar.getInstance();
+        int y = calendar.get(Calendar.YEAR);
+	    
+	    StringBuffer sb = new StringBuffer();
+	    sb.append(y).append("-").append(m).append("-").append(d);
+	  
+	    Date day = Date.valueOf(sb.toString());
+	    log.info("=========sb:{}======",day);
+	    
+	    memberVO.setBirth(day);
+	    memberVO.setAttributes(auth2User.getAttributes());
+	    
+	    List<RoleVO> roleList = new ArrayList<>();
+	    RoleVO roleVO = new RoleVO();
+	    roleVO.setRoleName("ROLE_MEMBER");
+	    
+	    roleList.add(roleVO);
+	    
+	    memberVO.setRoleVOs(roleList);
+		return memberVO;
+	}
+	
 	
 	public void testValid(@Valid MemberVO memberVO, BindingResult bindingResult) throws Exception{
 		log.info("Test Valid : {}", memberVO);
@@ -69,6 +147,7 @@ public class MemberService implements UserDetailsService{
 		return null;
 	}
 	
+    //Server Login
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     	// TODO Auto-generated method stub
