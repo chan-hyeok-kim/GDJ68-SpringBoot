@@ -4,11 +4,10 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 
 import javax.validation.Valid;
 
@@ -44,7 +43,7 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 		
-	
+	    
 		ClientRegistration clientRegistration = userRequest.getClientRegistration();
 		OAuth2User auth2User =  super.loadUser(userRequest);
 		log.info("============={}===========",auth2User);
