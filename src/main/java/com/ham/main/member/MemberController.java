@@ -1,5 +1,6 @@
 package com.ham.main.member;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -7,8 +8,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -85,10 +88,10 @@ public class MemberController {
 	}
 	
 	@GetMapping("update")
-	public void setUpdate(HttpSession session,Model model) throws Exception{
-		MemberVO memberVO = (MemberVO)session.getAttribute("member");
-		memberVO = memberService.getLogin(memberVO);
-		
+	public void setUpdate(@AuthenticationPrincipal MemberVO memberVO,Model model) throws Exception{
+//		MemberVO memberVO = (MemberVO)principal;
+//		memberVO = memberService.getLogin(memberVO);
+//		
 		MemberInfoVO memberInfoVO = new MemberInfoVO();
 		memberInfoVO.setName(memberVO.getName());
 		memberInfoVO.setBirth(memberVO.getBirth());
@@ -99,13 +102,15 @@ public class MemberController {
 	
 	@PostMapping("update")
 	public void setUpdate(@Valid MemberInfoVO memberInfoVO,BindingResult bindingResult) throws Exception{
-	   	
-	   
+	    Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    MemberVO memberVO = (MemberVO)object;
+	    memberVO.setEmail("updateEmail@naver.com");
+	    
 	}
 	
 	@GetMapping("info")
 	public void getInfo() throws Exception{
-	 
+		
 		
 	   
 	}

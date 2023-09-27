@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.ham.main.member.MemberService;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -18,16 +20,11 @@ public class SecurityConfig {
 	@Autowired
 	private SecuritySuccessHandler securitySuccessHandler;
 	
-	
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-//		암호화시켜주는 패스워드인코더
-	}
+	@Autowired
+	private MemberService memberService;
 	
 	
-	
-	
+
 	@Bean
 	//API처럼 직접 어노테이션을 줄 수 없는 경우, Bean으로 객체 생성 가능
     //스프링 풀에 객체 등록
@@ -47,8 +44,8 @@ public class SecurityConfig {
 		httpSecurity
 		    .cors()
 		    .and()
-		    .csrf()
-		    .disable()
+//		    .csrf()
+//		    .disable()
 		    .authorizeHttpRequests()
 				.antMatchers("/notice/add").hasRole("ADMIN") // ROLE_ADMIN에서 ROLE_제외
 				.antMatchers("/manager/*").hasAnyRole("MANAGER", "ADMIN")
@@ -73,6 +70,12 @@ public class SecurityConfig {
 		        .logoutSuccessHandler(this.getLogoutHandler())
 		        .invalidateHttpSession(true)
 		        .deleteCookies("JSESSIONID")
+		        .and()
+		    .rememberMe()
+		        .tokenValiditySeconds(60)
+		        .key("rememberKey")
+		        .userDetailsService(memberService)
+		        .authenticationSuccessHandler(securitySuccessHandler)
 		        .and()
 		    .sessionManagement()
 			    ;

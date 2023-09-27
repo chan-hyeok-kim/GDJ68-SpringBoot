@@ -32,7 +32,7 @@
 								<th scope="row">아이디</th>
 								<td colspan="4" width="40%">${member.username}</td>
 								<th scope="row">비밀번호</th>
-								<td>${member.password}</td>
+								<td><span id="password-text">${member.password}</span> </td>
 							</tr>
 							<tr>
 								<th scope="row">이름</th>
@@ -60,7 +60,11 @@
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
 </body>
 <script type="text/javascript">
-
-
+   let password= '${member.password}'
+   
+   if(password!=''){
+	   $('#password-text').text('*******');
+   }
+   
 </script>
 </html>
