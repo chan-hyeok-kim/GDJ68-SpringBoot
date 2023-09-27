@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,16 +51,24 @@
 
 								</table>
 
+
 								<div class="row">
+								
+								
 									<div class="col-sm-12 col-md-5">
 										<div class="dataTables_info" id="dataTable_info" role="status"
 											aria-live="polite">
+											
+											
+											<sec:authorize access="hasRole('ADMIN')">
 											<a href="/notice/add" class="btn btn-primary btn-icon-split"> <span
 												class="icon text-white-50"> <i class="fas fa-flag"></i>
-											</span> <span class="text">글 작성</span>
-											</a>
+											</span> 
+											<span class="text">글 작성</span></a>
+										</sec:authorize>
 										</div>
 									</div>
+									
 									<div class="col-sm-12 col-md-7">
 
 										<div class="dataTables_paginate paging_simple_numbers"

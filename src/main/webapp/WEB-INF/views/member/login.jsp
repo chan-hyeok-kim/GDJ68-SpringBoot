@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,12 +21,18 @@
 				<c:import url="/WEB-INF/views/layout/topbar.jsp"></c:import>
 
 				<div class="container-fluid">
+					<div>
+						<h3>${param.message}</h3>
+						<spring:message code="${param.message}" var="msg"></spring:message>
+
+						<h3>${msg}</h3>
+					</div>
 					<form:form modelAttribute="memberVO" method="post">
 						<div class="form-group">
 							<form:label path="username">Username</form:label>
 							<form:input id="username" path="username" cssClass="form-control" />
 							<form:errors path="username"></form:errors>
-         
+
 						</div>
 						<div class="form-group">
 							<form:label path="password">Password</form:label>
@@ -33,6 +40,10 @@
 							<form:errors path="password"></form:errors>
 						</div>
 
+                        <div class="form-group">
+                            <lable for="remember-me">remember me</lable>
+                            <input type="checkbox" name="remember-me" class="form-control" id="remember">
+                        </div>
 
 						<button type="submit" class="btn btn-primary">Submit</button>
 
@@ -67,4 +78,12 @@
 
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
 </body>
+<script type="text/javascript">
+	let m = '${msg}';
+	if (m != '') {
+		alert(m)
+	}
+
+	history.replaceState({}, null, location.pathname);
+</script>
 </html>

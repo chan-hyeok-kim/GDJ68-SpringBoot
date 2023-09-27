@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!-- Topbar -->
 <nav
 	class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -27,7 +28,8 @@
 	</form>
 
 	<!-- Topbar Navbar -->
-	<c:if test="${not empty member}">
+	<sec:authorize access="isAuthenticated()">
+	
 		<ul class="navbar-nav ml-auto">
 
 			<!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -174,7 +176,7 @@
 				<div
 					class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="/member/mypage"> <i
+					<a class="dropdown-item" href="/member/info"> <i
 						class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
 					</a> <a class="dropdown-item" href="/member/update"> <i
 						class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 정보 수정
@@ -191,8 +193,8 @@
 				</div></li>
 
 		</ul>
-	</c:if>
-	<c:if test="${empty member}">
+ </sec:authorize>	
+ <sec:authorize access="!isAuthenticated()"> 
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item"><a class="nav-link "
 				href="/member/join" role="button" aria-expanded="false">
@@ -205,7 +207,7 @@
 
 			</a></li>
 		</ul>
-	</c:if>
+	</sec:authorize>
 </nav>
 <!-- End of Topbar -->
 

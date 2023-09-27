@@ -1,11 +1,17 @@
 package com.ham.main.member;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import ch.qos.logback.core.Context;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -47,7 +54,9 @@ public class MemberController {
 		}
 		
 //		회원가입 진행
+		int result = memberService.setJoin(memberVO);
 		
+//		나중에 회원 사진 파일 저장 추가
 		
 		log.info("Photo : {}---size : {}",photo.getOriginalFilename(),photo.getSize());
 		return "redirect:../";
@@ -55,20 +64,20 @@ public class MemberController {
 	}
 	
 	@GetMapping("login")
-	public void getLogin(@ModelAttribute MemberVO memberVO) throws Exception{
+	public String getLogin(@ModelAttribute MemberVO memberVO) throws Exception{
+		SecurityContext context = SecurityContextHolder.getContext();
+        
+		String check = context.getAuthentication().getPrincipal().toString();
 		
-	}
-	
-	@PostMapping("login")
-    public String getLogin(MemberVO memberVO,HttpSession session) throws Exception{
-		memberVO = memberService.getLogin(memberVO);
-		if(memberVO!=null) {
-			session.setAttribute("member", memberVO);
-			return "redirect:../";
+		log.info("=========Name:{}=======",context.getAuthentication().getPrincipal().toString());
+		
+		if(!check.equals("anonymousUser")) {
+			return "redirect:/";
 		}
 		
-		return "redirect:./login";
+		return "member/login";
 	}
+
 	
 	@GetMapping("logout")
 	public String getLogOut(HttpSession session) throws Exception{
@@ -79,10 +88,10 @@ public class MemberController {
 	}
 	
 	@GetMapping("update")
-	public void setUpdate(HttpSession session,Model model) throws Exception{
-		MemberVO memberVO = (MemberVO)session.getAttribute("member");
-		memberVO = memberService.getLogin(memberVO);
-		
+	public void setUpdate(@AuthenticationPrincipal MemberVO memberVO,Model model) throws Exception{
+//		MemberVO memberVO = (MemberVO)principal;
+//		memberVO = memberService.getLogin(memberVO);
+//		
 		MemberInfoVO memberInfoVO = new MemberInfoVO();
 		memberInfoVO.setName(memberVO.getName());
 		memberInfoVO.setBirth(memberVO.getBirth());
@@ -93,10 +102,18 @@ public class MemberController {
 	
 	@PostMapping("update")
 	public void setUpdate(@Valid MemberInfoVO memberInfoVO,BindingResult bindingResult) throws Exception{
-	   	
-	   
+	    Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    MemberVO memberVO = (MemberVO)object;
+	    memberVO.setEmail("updateEmail@naver.com");
+	    
 	}
 	
+	@GetMapping("info")
+	public void getInfo() throws Exception{
+		
+		
+	   
+	}
 	
 	
 }
