@@ -50,7 +50,7 @@ public class NoticeService implements BoardService {
 		
 		log.info("==========================");
 		log.info("BoardNo: {}", boardVO.getBoardNo());
-		
+	    
 		
 //		for(MultipartFile multipartFile: files) {
 //			if(multipartFile.isEmpty()) {

@@ -35,6 +35,13 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
+	@GetMapping("kakaoLogout")
+	public String kakaoLogout() {
+		log.info("카카오 로그아웃");
+		return "redirect:../";
+	}
+	
+	
 	@GetMapping("join")
 	public void setJoin(@ModelAttribute MemberVO memberVO) throws Exception{
 //	     model도 속성명이 없을 경우. 
@@ -79,13 +86,7 @@ public class MemberController {
 	}
 
 	
-	@GetMapping("logout")
-	public String getLogOut(HttpSession session) throws Exception{
-		
-		session.invalidate();
-		
-		return "redirect:../";
-	}
+
 	
 	@GetMapping("update")
 	public void setUpdate(@AuthenticationPrincipal MemberVO memberVO,Model model) throws Exception{

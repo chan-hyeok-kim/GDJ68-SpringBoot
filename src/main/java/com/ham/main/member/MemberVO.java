@@ -40,6 +40,8 @@ public class MemberVO extends MemberInfoVO implements UserDetails, OAuth2User{
 	private List<RoleVO> roleVOs;
 	
 	private Map<String, Object> attributes;
+	private String accessToken;
+	
 	
 	@Override
 	public Map<String, Object> getAttributes() {

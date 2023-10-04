@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
@@ -46,20 +47,20 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 	    
 		ClientRegistration clientRegistration = userRequest.getClientRegistration();
 		OAuth2User auth2User =  super.loadUser(userRequest);
-		log.info("============={}===========",auth2User);
+		log.info("=============Auth2user:{}===========",auth2User);
 		
 		
 		String social = clientRegistration.getRegistrationId();
 		
 		if(social.equals("kakao")) {
-			auth2User = this.forKakao(auth2User);
+			auth2User = this.forKakao(auth2User,userRequest);
 		}
 		
 		return auth2User;
 	}
 	
 	
-	private OAuth2User forKakao(OAuth2User auth2User){
+	private OAuth2User forKakao(OAuth2User auth2User,OAuth2UserRequest userRequest){
 		MemberVO memberVO = new MemberVO();
 		
 		
@@ -68,7 +69,7 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		
 		LinkedHashMap<String, Object> accountMap = auth2User.getAttribute("kakao_account");
 		
-		log.info("****{}*********", auth2User.getAttribute("properties").getClass());
+		log.info("****Auth2user properties:{}*********", auth2User.getAttribute("properties").getClass());
 		log.info("****{}*********", map);
 		auth2User.getAttribute("properties");
 		
@@ -87,12 +88,17 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 	    StringBuffer sb = new StringBuffer();
 	    sb.append(y).append("-").append(m).append("-").append(d);
 	  
+	    //사용자가 DB에 있는지 확인
+	    
+	    
 	    Date day = Date.valueOf(sb.toString());
 	    log.info("=========sb:{}======",day);
-	    
+	    memberVO.setAccessToken(userRequest.getAccessToken().getTokenValue());
 	    memberVO.setBirth(day);
 	    memberVO.setAttributes(auth2User.getAttributes());
+	    memberVO.setName(auth2User.getName());
 	    
+	    //사용자 권한을 DB에서 조회
 	    List<RoleVO> roleList = new ArrayList<>();
 	    RoleVO roleVO = new RoleVO();
 	    roleVO.setRoleName("ROLE_MEMBER");
