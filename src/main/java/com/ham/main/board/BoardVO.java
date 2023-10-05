@@ -18,5 +18,4 @@ public class BoardVO {
 	private Date boardDate;
 	private Long boardHit;
 	
-	
 }

@@ -50,7 +50,7 @@ public class NoticeController {
 	
 	@PostMapping("add")
 	public String add(BoardVO boardVO, MultipartFile[] files) throws Exception{
-//		log.info("BoardVO : {}", boardVO);
+		log.info("BoardVO : {}", boardVO);
 	
 		int result = noticeService.add(boardVO, files);
 		

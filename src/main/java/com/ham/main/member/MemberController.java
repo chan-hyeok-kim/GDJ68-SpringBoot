@@ -75,7 +75,7 @@ public class MemberController {
 		SecurityContext context = SecurityContextHolder.getContext();
         
 		String check = context.getAuthentication().getPrincipal().toString();
-		
+
 		log.info("=========Name:{}=======",context.getAuthentication().getPrincipal().toString());
 		
 		if(!check.equals("anonymousUser")) {
