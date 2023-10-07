@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ham.main.member.MemberDAO">
+
+	<select id="getMember" parameterType="MemberVO"
+		resultMap="getMemberResult">
+		SELECT M.*, R.*
+		FROM MEMBER M INNER JOIN MEMBER_ROLE MR
+		ON
+		M.USERNAME = MR.USERNAME INNER JOIN ROLE R
+		ON MR.ROLENUM = R.ROLENUM
+		WHERE M.USERNAME=#{username}
+	</select>
+
+	<resultMap type="MemberVO" id="getMemberResult">
+		<id column="USERNAME" property="username" />
+		<result column="PASSWORD" property="password" />
+		<result column="NAME" property="name" />
+		<result column="EMAIL" property="email" />
+		<result column="BIRTH" property="birth" />
+		<result column="JOINDATE" property="joinDate" />
+        <result column="ENABLED" property="enabled"/>
+        
+		<collection property="roleVOs" ofType="RoleVO" javaType="List">
+			<id column="ROLENUM" property="roleNum" />
+			<result column="ROLENAME" property="roleName" />
+		</collection>
+		
+	</resultMap>
+	
+	<insert id="setJoin" parameterType="MemberVO">
+	   INSERT INTO MEMBER (USERNAME, PASSWORD, NAME, EMAIL, BIRTH, JOINDATE)
+	   VALUES (#{username}, #{password},#{name},#{email},#{birth}, NOW())	
+	</insert>
+	
+	<insert id="setMemberRole" parameterType="java.util.Map">
+	   INSERT INTO MEMBER_ROLE 
+	   VALUES (#{roleNum},#{username})
+	</insert>
+	
+</mapper>
