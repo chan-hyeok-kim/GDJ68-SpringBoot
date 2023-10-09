@@ -56,11 +56,17 @@ https://cdn.jsdelivr.net/npm/ztree@3.5.24/css/metroStyle/metroStyle.min.css
          <input type="radio"> 부서 
        </div>
        
+  <div style="display: flex">
        <div>
        
        <ul id="tree" class="ztree"></ul>
        </div>
        
+       <div style="margin-left: 20px;">
+         <ul id="tree-list" class="ztree"></ul>
+       
+       </div>
+  </div>      
        
       </div>
       <div class="modal-footer">

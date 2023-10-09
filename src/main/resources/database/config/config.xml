@@ -15,7 +15,7 @@
 		<typeAlias type="com.ham.main.board.notice.NoticeFileVO" alias="NoticeFileVO" />
 		<typeAlias type="com.ham.main.board.qna.QnaVO" alias="QnaVO" />
 		<typeAlias type="com.ham.main.board.qna.QnaFileVO" alias="QnaFileVO" />
-		
+		<typeAlias type="com.ham.main.approval.EmployeeVO" alias="EmployeeVO"/>
 		<typeAlias type="com.ham.main.member.MemberVO" alias="MemberVO" />
 		<typeAlias type="com.ham.main.member.RoleVO" alias="RoleVO"/>
 		<typeAlias type="com.ham.main.commons.Pager" alias="Pager" />
