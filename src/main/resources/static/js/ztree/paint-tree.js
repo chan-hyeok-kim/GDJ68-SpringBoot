@@ -11,12 +11,17 @@
       radioType:"level"
     },
    callback: {
-	   onClick: myOnClick
+	   onCheck: myOnClick,
+	   beforeCheck: myBeforeClick
    }
 	
    };
    var resultArr=new Array();
-   function myOnClick(event,tree_6,treeNode) {
+   var zNodesList;
+   function myBeforeClick(treeId, treeNode, clickFlag) {
+    return (treeNode.name =='영업팀');
+};
+   function myOnClick(event,treeId,treeNode) {
       $('#tree_6').click(function(){
          console.log('영업부 클릭됨')
           console.log(treeNode.name)
@@ -31,10 +36,31 @@
               
              for(r of result){
 				console.log(r);
-				resultArr.push(r);
-               $('#tree-list').append('<div>영업팀 '+r.employeeName+'</div>');
+				r.name=r.employeeName;
+				delete r.employeeName;
+				delete r.employeeNum;
+				delete r.deptCode;
+				resultArr.push(r)
+				console.log(resultArr)
+               
+                zNodesList=resultArr;
             } 
-        }
+           
+             var settingList = {
+             check: {
+             autoCheckTrigger:false,
+             chkStyle: "checkbox",
+             enable:true,
+             chkboxType:{"Y":"ps","N":"ps"},
+             nocheckInherit:false,
+             chkDisabledInherit:false,
+             radioType:"level"
+             }};
+    
+             $(document).ready(function(){
+             zTreeObj = $.fn.zTree.init($("#tree-list"), settingList, zNodesList);
+             });
+             }
         })
        })
    
@@ -57,18 +83,5 @@
    
    
    
-   var settingList = {
-    check: {
-      autoCheckTrigger:false,
-      chkStyle: "checkbox",
-      enable:true,
-      chkboxType:{"Y":"ps","N":"ps"},
-      nocheckInherit:false,
-      chkDisabledInherit:false,
-      radioType:"level"
-    }};
-    var zNodesList = resultArr;
-   $(document).ready(function(){
-      zTreeObj = $.fn.zTree.init($("#tree-list"), settingList, zNodesList);
-   });
+  
   
