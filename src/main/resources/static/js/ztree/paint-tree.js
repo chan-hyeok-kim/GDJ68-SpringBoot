@@ -11,35 +11,38 @@
       radioType:"level"
     },
    callback: {
-	   onCheck: myOnClick,
-	   beforeCheck: myBeforeClick
+	   onCheck: myOnCheck,
+	   beforeCheck: myBeforeCheck
    }
 	
    };
-   var resultArr=new Array();
+   
    var zNodesList;
-   function myBeforeClick(treeId, treeNode, clickFlag) {
+   function myBeforeCheck(treeId, treeNode, clickFlag) {
     return (treeNode.name =='영업팀');
 };
-   function myOnClick(event,treeId,treeNode) {
-      $('#tree_6').click(function(){
+   var employeeNum;
+   var employeeName;
+   function myOnCheck(event,treeId,treeNode) {
+      
          console.log('영업부 클릭됨')
           console.log(treeNode.name)
           if(treeNode.name=="영업팀"){
 			  deptCode='1'
 		  }
+		  
           $.ajax({
 			  url:"/approval/getSalesTeamList?deptCode="+deptCode,
 			  type:"GET"
 			  ,success:function(result){
               console.log(result);
-              
+              var resultArr=new Array();
              for(r of result){
 				console.log(r);
 				r.name=r.employeeName;
 				delete r.employeeName;
-				delete r.employeeNum;
 				delete r.deptCode;
+				
 				resultArr.push(r)
 				console.log(resultArr)
                
@@ -55,14 +58,27 @@
              nocheckInherit:false,
              chkDisabledInherit:false,
              radioType:"level"
-             }};
+             },
+             callback: {
+	           onCheck: employeeOnCheck,
+             }
+             };
+             function employeeOnCheck(event,treeId,treeNode){
+				 employeeNum=treeNode.employeeNum;
+				 employeeName=treeNode.name;
+				 
+				 
+			 }
     
-             $(document).ready(function(){
-             zTreeObj = $.fn.zTree.init($("#tree-list"), settingList, zNodesList);
-             });
+            
+    
+             /*$(document).ready(function(){});*/
+            
+             zTreeObj = $.fn.zTree.init($("#tree_list"), settingList, zNodesList);
+             
              }
         })
-       })
+       
    
 };
 
@@ -79,7 +95,12 @@
    });
    
    
-   
+   $('#tree_list_add').click(function(){
+	    $('#tree-table-body').append('<tr>'+
+				 '<td>결재</td>'+'<td>'+employeeName+'</td>'
+				 +'</tr>');
+	   
+   })
    
    
    
