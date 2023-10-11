@@ -45,7 +45,7 @@ https://cdn.jsdelivr.net/npm/ztree@3.5.24/css/metroStyle/metroStyle.min.css
 				  
 				  <h1>전자 결재 홈</h1>
 				  <div>
-				  <button> 새 결재 진행</button>
+				  <button id="approval-add"> 새 결재 진행</button>
 				  
 				  
 			
@@ -150,15 +150,18 @@ https://cdn.jsdelivr.net/npm/ztree@3.5.24/css/metroStyle/metroStyle.min.css
      <div style="display: flex;">
      
      <div style="border: 1px solid gray">
-     <div style="border: 1px solid gray;">
+     <div style="border: 1px solid gray; ">
+     <div style="width: 55%;">
       Before: 원본 사진
-      <input type="file" accept="image/*" id="file" name="file" style="display: none;" onchange="loadFile(this)">
-      <div onclick="document.getElementById('file').click()">이미지 삽입</div>
-       
-         <div id="fileName"></div>
-      <div id="image-show"></div>
-      
       </div>
+      <input type="file" accept="image/*" id="file" name="file" style="display: none;" onchange="loadFile(this)">
+      <div style="text-decoration:underline; float:left; width: 40%" onclick="document.getElementById('file').click()">이미지 선택</div>
+       </div>
+       </div>
+         <div id="fileName"></div>
+      <div id="image-show" style="width: 400px"></div>
+      
+      
      </div>
      
      
@@ -167,7 +170,7 @@ https://cdn.jsdelivr.net/npm/ztree@3.5.24/css/metroStyle/metroStyle.min.css
      <div style="border: 1px solid gray;">
       After
      </div>
-        <div id="small-image-show" style="align-content: center"></div>  
+        <div id="small-image-show" style="align-content: center; padding: 40px;"></div>  
         </div>    
      </div>
       
@@ -178,7 +181,7 @@ https://cdn.jsdelivr.net/npm/ztree@3.5.24/css/metroStyle/metroStyle.min.css
       </div>
       <div class="modal-footer" style="background: white">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary">확인</button>
+        <button id="sign-image-save" type="button" class="btn btn-primary">확인</button>
       </div>
     </div>
   </div>
@@ -215,8 +218,8 @@ function loadFile(input) {
     //이미지 source 가져오기
     newImage.src = URL.createObjectURL(file);   
 
-    newImage.style.width = "70%";
-    newImage.style.height = "70%";
+    newImage.style.width = "80%";
+    newImage.style.height = "80%";
       //버튼을 누르기 전까지는 이미지를 숨긴다
     newImage.style.objectFit = "contain";
 
@@ -228,7 +231,12 @@ function loadFile(input) {
     
     var fileUrl = $('#file-img').attr('src');
     console.log();
-    $('#small-image-show').append('<img src='+fileUrl+' width="60px" height="40px">')
+    $('#small-image-show').append('<img src='+fileUrl+' width="60px" height="40px" id="sign-image">')
+    
+    $('#approval-add').click(function(){
+    	
+    })
+    
     
     
     //작은 이미지

@@ -43,6 +43,7 @@ public class MemberVO extends MemberInfoVO implements UserDetails, OAuth2User{
 	private String accessToken;
 	
 	
+	
 	@Override
 	public Map<String, Object> getAttributes() {
 		// TODO Auto-generated method stub
