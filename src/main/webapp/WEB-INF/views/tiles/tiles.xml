@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ 
+<tiles-definitions>
+ 
+	<!--// main layout -->
+	<definition name="mainTemplate" template="/WEB-INF/views/layout/mainTemplate.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/layout/topbar.jsp" />
+		<put-attribute name="body" value="" />
+	</definition>
+
+	<!-- 로그인 요청에 대한 페이지 설정-->
+	<definition name="login" extends="mainTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/member/login.jsp" />
+	</definition>
+
+	<!-- 게시판 요청에 대한 페이지 설정-->
+	<definition name="notice" extends="mainTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/board/list.jsp" />
+	</definition>
+ 
+</tiles-definitions>

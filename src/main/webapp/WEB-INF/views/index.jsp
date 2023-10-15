@@ -4,23 +4,16 @@
 <!-- JSP에서 properties이 메세지를 사용할 수 있도록 하는 API -->
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<c:import url="/WEB-INF/views/layout/headCSS.jsp"></c:import>
+
 </head>
-<body id="page-top">
-	<div id="wrapper">
-		<!-- sidebar -->
-		<c:import url="/WEB-INF/views/layout/sidebar.jsp"></c:import>
-
-		<!-- Content Wrapper -->
-		<div id="content-wrapper" class="d-flex flex-column">
-			<div id="content">
-				<c:import url="/WEB-INF/views/layout/topbar.jsp"></c:import>
-
+<body>
+	
 				<div class="container-fluid">
 				    <h1>Welcome : <spring:message code="hello"></spring:message></h1>
 				    <h1><spring:message code="hi" text="기본메세지"></spring:message> </h1>
@@ -31,13 +24,6 @@
 				    </sec:authorize>
 				</div>
 
-			</div>
-			<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
-		</div>
-
-	</div>
-   
-
-	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
+		
 </body>
 </html>

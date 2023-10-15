@@ -18,7 +18,7 @@
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div id="content">
-				<c:import url="/WEB-INF/views/layout/topbar.jsp"></c:import>
+			<%-- 	<c:import url="/WEB-INF/views/layout/topbar.jsp"></c:import> --%>
 
 				<div class="container-fluid">
 					<div>
