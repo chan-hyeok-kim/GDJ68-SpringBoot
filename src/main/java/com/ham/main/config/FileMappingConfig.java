@@ -23,6 +23,7 @@ public class FileMappingConfig implements WebMvcConfigurer {
 //		local파일 위치
 		.addResourceLocations(filePath);
 		
+		
 	}
 
 
